@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: python-profiling-example
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    # To enable profiling, uncomment the line below and comment out the line above, then redeploy:
+    # startCommand: scalene --cpu --html --profile-interval=15 --outfile=/tmp/scalene.html wrapper-app.py
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+    - key: PYTHON_VERSION
+      value: 3.13.4
